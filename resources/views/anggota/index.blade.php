@@ -221,7 +221,7 @@
                 @else
                 $('#no_identitas').val(data.nim);
                 @endif
-                $('form').attr('action', "{{ url('admin/anggota/'.$id_name.'/'.$anggota->id) }}");
+                $('form').attr('action', "{{ url('admin/anggota/'.$id_name) }}"+"/"+id);
             }
         })
     })    

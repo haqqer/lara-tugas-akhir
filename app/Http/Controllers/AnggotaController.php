@@ -35,19 +35,27 @@ class AnggotaController extends Controller
         return $anggota;
     }
 
-    public function insert(Request $request, $id_name) {
+    public function store(Request $request, $id_name, $id=0) {
 
+        $model = $this->filter($id_name);
+        if($id != 0) {
+            $anggota = $model->findOrFail($id);
+            $validatedData = Validator::make($request->all(),   [
+                'nama' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:'.$id_name.',email,'.$anggota->id],
+                'no_identitas' => ['required', 'string', 'max:20'],
+                'foto' => ['mimes:jpeg,jpg,png']
+            ]);
+        } else {
+            $anggota = $model;
+            $validatedData = Validator::make($request->all(),   [
+                'nama' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:'.$id_name],
+                'no_identitas' => ['required', 'string', 'max:20'],
+                'foto' => ['mimes:jpeg,jpg,png']
+            ]);                
+        }
         // Validasi data yang masuk
-        $validatedData = Validator::make($request->all(),   [
-            'nama' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.$id_name],
-            'no_identitas' => ['required', 'string', 'max:20'],
-            'foto' => ['mimes:jpeg,jpg,png']
-        ]);    
-        
-        $anggota = $this->filter($id_name);
-        
-        //Apabila Error maka halaman akan redirect ke halaman sebelumnya
         if($validatedData->fails()) {
             Session::flash('error', $validatedData->messages()->first());
             return redirect()
@@ -55,6 +63,11 @@ class AnggotaController extends Controller
                     ->withErrors($validatedData)
                     ->withInput();
         }
+        
+        
+        
+        //Apabila Error maka halaman akan redirect ke halaman sebelumnya
+
         
         
         $anggota->nama = $request->nama;
@@ -86,9 +99,5 @@ class AnggotaController extends Controller
         $anggota = $this->filter($id_name);
         $data = $anggota->findOrFail($id);
         return response()->json($data);
-    }
-
-    public function update($id_name, $id) {
-        
     }
 }
