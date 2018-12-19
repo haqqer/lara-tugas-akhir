@@ -27,5 +27,6 @@ Route::prefix('admin')->group(function() {
     Route::get('anggota/{id_name}', 'AnggotaController@index', 'id_name');
     Route::post('anggota/{id_name}', 'AnggotaController@insert', 'id_name')->name('anggota.daftar');
     Route::get('anggota/{id_name}/{id}', 'AnggotaController@show', 'id_name', 'id');
+    Route::post('anggota/{id_name}/{id}', 'AnggotaController@update', 'id_name', 'id');
 });
 

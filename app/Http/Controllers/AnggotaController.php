@@ -81,10 +81,14 @@ class AnggotaController extends Controller
             return back()->with('success-msg', 'Data Berhasil di simpan');
         }
     }
-
+    // Show Detail Method
     public function show($id_name,$id) {
         $anggota = $this->filter($id_name);
         $data = $anggota->findOrFail($id);
         return response()->json($data);
+    }
+
+    public function update($id_name, $id) {
+        
     }
 }

@@ -71,7 +71,7 @@
                 <!-- Navbar  -->
                 <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        LabRPL
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                         <span class="navbar-toggler-icon"></span>
@@ -119,9 +119,13 @@
                     
                 </nav>
                 <div id="content" class="mt-5">
+                    <div class="main-nav mb-2">
+                        <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Toggle Menu</a>
+                    </div>
+                    
                     @yield('content')
                 </div>   
-                <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Toggle Menu</a>
+                
             </div>
         </div>
         <!-- /#page-content-wrapper -->

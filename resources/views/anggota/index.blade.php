@@ -3,6 +3,7 @@
 @section('content')
 <div class="row">
     <div class="col-12">
+            <!-- Flash Message baik sukses maupun error -->
             @if(session('success-msg'))
             <div class="alert alert-success">
               {{session('success-msg')}}
@@ -12,10 +13,12 @@
               {{session('fail-msg')}}
             </div>
             @endif
+            <!-- EndFlash -->
         <div class="card">
             <div class="card-header">{{ $id_name }}</div>
 
                 <div class="card-body">
+                    <!-- Form Input Anggota -->
                     <form method="POST" action="{{ url('admin/anggota/'.$id_name) }}" enctype="multipart/form-data">
                         @csrf
 
@@ -110,14 +113,16 @@
                                         $identitas = $anggota->npp;
                                     }
                                 @endphp
-                            <tr id="mahasiswa_{{ $anggota->id }}">
+                            <tr id="{{ $id_name }}_{{ $anggota->id }}">
                                 <td>{{ $i++ }}</td>
                                 <td>{{ $anggota->nama }}</td>
                                 <td>{{ $anggota->email }}</td>
                                 <td>{{ $identitas }}</td>
                                 <td>{{ $anggota->created_at->diffForHumans() }}</td>
                                 <td>{{ $anggota->updated_at->diffForHumans() }}</td>
-                                <td><button type="button" class="edit btn btn-outline-primary" data-toggle="modal" data-target="#View" id="{{ $anggota->id }}">View</button>|<button type="button" class="btn btn-outline-danger">Hapus</button></td>
+                                <td><button type="button" class="show btn btn-outline-primary" data-toggle="modal" data-target="#View" id="{{ $anggota->id }}">View</button>|
+                                    <button type="button" class="btn btn-outline-danger">Hapus</button>|
+                                    <button type="button" class="edit btn btn-outline-success" id="{{ $anggota->id }}">Edit</button></td>
                             </tr>
                             @endforeach
                     </tbody>
@@ -127,6 +132,7 @@
     </div>
 </div>
 
+<!-- MODAL -->
 <div class="modal fade" id="View" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -138,8 +144,28 @@
       </div>
       <div class="modal-body">
         <div class="row">
+            <div class="col-4">
+                <img src="" alt="profile" class="img-thumbnail" id="foto-view">
+            </div>
             <div class="col-8">
-                
+                <table class="table table-responsive">
+                    <tr>
+                        <th>ID</th>
+                        <td id="id-view"></td>
+                    </tr>
+                    <tr>
+                        <th>Nama</th>
+                        <td id="nama-view"></td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td id="email-view"></td>
+                    </tr>
+                    <tr>
+                        <th>NIM/NPP</th>
+                        <td id="identitas-view"></td>
+                    </tr>
+                </table>
             </div>
         </div>
       </div>
@@ -151,25 +177,51 @@
   </div>
 </div>
 <script>
+    // Modal Trigger
     $('#View').on('shown.bs.modal', function () {  
         $('#View').trigger('focus');
     });
-    $('.edit').click(function(e) {
+
+    // Menampilkan Detail anggota dengan Modal
+    $('.show').click(function(e) {
         let id = $(this).attr('id');
-        let data = $('#mahasiswa_'+id).val();
+        let express = $('{{ $id_name }}'+"_"+id).val();
         $.ajax({
             type: "GET",
-            url: id,
+            url: '{{ $id_name }}'+"/"+id,
+            dataType: "JSON",
+            success: function(data) {
+                $("#id-view").html(data.id);
+                $('#nama-view').html(data.nama);
+                $('#email-view').html(data.email);
+                @if($id_name == 'dosen')
+                $('#identitas-view').html(data.npp);
+                @else
+                $('#identitas-view').html(data.nim);
+                @endif
+                $('#foto-view').attr('src', "{{ asset('uploads/images') }}"+"/"+"{{ $id_name }}"+"/"+data.foto)
+
+            }
+        })
+    })
+
+    // Edit Handler, ketika tombol Edit, di klik akan otomatis mengisi form diatas
+    $('.edit').click(function(e) {
+        let id = $(this).attr('id');
+        let express = $('{{ $id_name }}'+"_"+id).val();
+        $.ajax({
+            type: "GET",
+            url: '{{ $id_name }}'+"/"+id,
             dataType: "JSON",
             success: function(data) {
                 $('#nama').val(data.nama);
                 $('#email').val(data.email);
                 @if($id_name == 'dosen')
-                $('#identitas').val(data.npp);
+                $('#no_identitas').val(data.npp);
                 @else
-                $('#identitas').val(data.nim);
+                $('#no_identitas').val(data.nim);
                 @endif
-
+                $('form').attr('action', "{{ url('admin/anggota/'.$id_name.'/'.$anggota->id) }}");
             }
         })
     })    
