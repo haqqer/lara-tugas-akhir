@@ -14,6 +14,10 @@ use App\Alumni;
 
 class AnggotaController extends Controller
 {
+    public function __construct() {
+        $this->middleware('auth');
+    }
+
     public function index($id_name) {
         $anggota = $this->filter($id_name);
         $anggotas = $anggota->all();

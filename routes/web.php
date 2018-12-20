@@ -24,10 +24,19 @@ Route::get('/admin', function() {
 
 Route::prefix('admin')->group(function() {
     // Route::get('/', '');dosen
-    Route::get('anggota/{id_name}', 'AnggotaController@index', 'id_name');
-    Route::post('anggota/{id_name}', 'AnggotaController@store', 'id_name')->name('anggota.daftar');
-    Route::get('anggota/{id_name}/{id}', 'AnggotaController@show', 'id_name', 'id');
-    Route::post('anggota/{id_name}/{id}', 'AnggotaController@store', 'id_name', 'id');
-    Route::get('anggota/{id_name}/{id}/delete', 'AnggotaController@delete', 'id_name', 'id');
+    Route::prefix('anggota')->group(function() {
+        Route::get('/{id_name}', 'AnggotaController@index', 'id_name');
+        Route::post('/{id_name}', 'AnggotaController@store', 'id_name');
+        Route::get('/{id_name}/{id}', 'AnggotaController@show', 'id_name', 'id');
+        Route::post('/{id_name}/{id?}', 'AnggotaController@store', 'id_name', 'id');
+        Route::get('/{id_name}/{id}/delete', 'AnggotaController@delete', 'id_name', 'id');
+    });
+    Route::prefix('berita')->group(function() {
+        Route::get('/', 'BeritaController@index');
+        Route::get('/create', 'BeritaController@create');
+        Route::get('/{id}', 'BeritaController@edit', 'id');
+        Route::post('/', 'BeritaController@store');
+        Route::get('/{id}/delete', 'BeritaController@delete', 'id');
+    });
 });
 
