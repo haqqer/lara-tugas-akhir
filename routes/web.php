@@ -34,9 +34,12 @@ Route::prefix('admin')->group(function() {
     Route::prefix('berita')->group(function() {
         Route::get('/', 'BeritaController@index');
         Route::get('/create', 'BeritaController@create');
-        Route::get('/{id}', 'BeritaController@edit', 'id');
+        Route::get('/edit/{id}', 'BeritaController@edit', 'id');
         Route::post('/', 'BeritaController@store');
         Route::get('/{id}/delete', 'BeritaController@delete', 'id');
+    });
+    Route::prefix('kategori')->group(function() {
+        Route::get('/', 'KategoriController@index');
     });
 });
 

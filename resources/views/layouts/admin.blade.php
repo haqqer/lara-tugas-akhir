@@ -9,7 +9,7 @@
     <meta name="author" content="">
 
     <title>Simple Sidebar - Start Bootstrap Template</title>
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
@@ -45,13 +45,19 @@
                     Anggota
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item text-dark" href="{{ url('admin/anggota/dosen') }}">Dosen</a>
-                    <a class="dropdown-item text-dark" href="{{ url('admin/anggota/mahasiswa') }}">Mahasiswa</a>
-                    <a class="dropdown-item text-dark" href="{{ url('admin/anggota/alumni') }}">Alumni</a>
+                        <a class="dropdown-item text-dark" href="{{ url('admin/anggota/dosen') }}">Dosen</a>
+                        <a class="dropdown-item text-dark" href="{{ url('admin/anggota/mahasiswa') }}">Mahasiswa</a>
+                        <a class="dropdown-item text-dark" href="{{ url('admin/anggota/alumni') }}">Alumni</a>
                     </div>
                 </li>
                 <li>
-                    <a href="#" id="news">Informasi</a>
+                    <a class="dropdown-toggle" href="{{ url('admin/berita') }}" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Berita
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                        <a class="dropdown-item text-dark" href="{{ url('admin/berita') }}">All</a>
+                        <a class="dropdown-item text-dark" href="{{ url('admin/berita/create') }}">Buat baru</a>
+                    </div>
                 </li>
                 <li>
                     <a href="#" id="download">Download</a>

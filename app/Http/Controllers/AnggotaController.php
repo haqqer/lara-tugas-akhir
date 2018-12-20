@@ -22,6 +22,7 @@ class AnggotaController extends Controller
         $anggota = $this->filter($id_name);
         $anggotas = $anggota->all();
         $i = 1;
+        
         return view('anggota.index', compact('anggotas', 'i', 'id_name'));
     }
 
@@ -40,6 +41,7 @@ class AnggotaController extends Controller
     }
 
     public function store(Request $request, $id_name, $id=0) {
+        $this->middleware('auth');
         // Validasi data yang masuk
         $model = $this->filter($id_name);
         if($id != 0) {
