@@ -86,9 +86,11 @@
                             </div>
                         </div>
                     </form>
+                    <!-- END FORM -->
                 </div>
             </div>
         </div>
+
         </div>
         <div class="col-12">
             <div class="card mt-5">
@@ -121,7 +123,8 @@
                                 <td>{{ $anggota->created_at->diffForHumans() }}</td>
                                 <td>{{ $anggota->updated_at->diffForHumans() }}</td>
                                 <td><button type="button" class="show btn btn-outline-primary" data-toggle="modal" data-target="#View" id="{{ $anggota->id }}">View</button>|
-                                    <button type="button" class="btn btn-outline-danger">Hapus</button>|
+                                    <!-- <button type="button" class="btn btn-outline-danger" onclick="deleteData(`{{ url('admin/anggota/'.$id_name.'/'.$anggota->id) }}`)">Hapus</button>| -->
+                                    <button type="button" class="delete btn btn-outline-danger" id="{{ $anggota->id }}">Hapus</button>|
                                     <button type="button" class="edit btn btn-outline-success" id="{{ $anggota->id }}">Edit</button></td>
                             </tr>
                             @endforeach
@@ -222,8 +225,38 @@
                 $('#no_identitas').val(data.nim);
                 @endif
                 $('form').attr('action', "{{ url('admin/anggota/'.$id_name) }}"+"/"+id);
+                $('#foto').prop('required', false);
             }
         })
-    })    
+    });
+
+    // Delete Handler, ketika tombol Delete, di klik akan otomatis mengisi form diatas
+    $('.delete').click(function(e) {
+        var id = $(this).attr('id');
+        console.log(id);
+        var express = $('{{ $id_name }}'+"_"+id).val();
+        swal({
+            title: "Hapus Data",
+            text: "Anda yakin ingin menghapus data",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((willDelete) => {
+            if(willDelete) {
+                $.ajax({
+                    type: 'GET',
+                    url: '{{ $id_name }}'+'/'+id+'/delete',
+                    dataType: "JSON",
+                    success: function(data) {
+                        swal("Data Telah dihapus", {
+                            icon: "success"
+                        }).then(() => {
+                            location.reload();
+                        })
+                    }
+                })
+            }
+        });                     
+    })        
 </script>
 @endsection

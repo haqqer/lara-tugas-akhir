@@ -36,7 +36,7 @@ class AnggotaController extends Controller
     }
 
     public function store(Request $request, $id_name, $id=0) {
-
+        // Validasi data yang masuk
         $model = $this->filter($id_name);
         if($id != 0) {
             $anggota = $model->findOrFail($id);
@@ -55,7 +55,7 @@ class AnggotaController extends Controller
                 'foto' => ['mimes:jpeg,jpg,png']
             ]);                
         }
-        // Validasi data yang masuk
+        //Apabila Error maka halaman akan redirect ke halaman sebelumnya
         if($validatedData->fails()) {
             Session::flash('error', $validatedData->messages()->first());
             return redirect()
@@ -65,9 +65,6 @@ class AnggotaController extends Controller
         }
         
         
-        
-        //Apabila Error maka halaman akan redirect ke halaman sebelumnya
-
         
         
         $anggota->nama = $request->nama;
@@ -99,5 +96,13 @@ class AnggotaController extends Controller
         $anggota = $this->filter($id_name);
         $data = $anggota->findOrFail($id);
         return response()->json($data);
+    }
+
+    public function delete($id_name, $id) {
+        $anggota = $this->filter($id_name);
+        $data = $anggota->findOrFail($id);
+        $data->delete();
+        return response()->json($data);
+        // return back();
     }
 }
