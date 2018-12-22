@@ -29,7 +29,7 @@ class BeritaController extends Controller
         return view('berita.create');
     }
 
-    public function store(Request $request) {
+    public function store(Request $request, $id=0) {
         // Validasi data yang masuk
         $berita = new Berita;
         $validatedData = Validator::make($request->all(),   [
@@ -37,6 +37,10 @@ class BeritaController extends Controller
             'kategori_id' => ['required'],
             'foto' => ['mimes:jpeg,jpg,png']
         ]);
+        if($id != 0) {
+            $berita = Berita::findOrFail($id);
+        }
+
         //Apabila Error maka halaman akan redirect ke halaman sebelumnya
         if($validatedData->fails()) {
             Session::flash('error', $validatedData->messages()->first());
@@ -64,7 +68,29 @@ class BeritaController extends Controller
         }
         // Apabila sukses di save
         if($berita->save()) {
+            // return redirect()->json($berita);
             return redirect('admin/berita')->with('success-msg', 'Data berhasil disimpan');
         }
+    }
+
+    public function view($id) {
+        $berita = Berita::findOrFail($id);
+        return response()->json($berita);
+    }
+
+    public function edit($id) {
+        $berita = Berita::findOrFail($id);
+        return view('berita.edit', compact('berita'));
+    }
+
+    public function show($id) {
+        $berita = Berita::findOrFail($id);
+        return view('berita.view', compact('berita'));
+    }
+
+    public function delete($id) {
+        $berita = Berita::findOrFail($id);
+        $berita->delete();
+        return response()->json($berita);
     }
 }

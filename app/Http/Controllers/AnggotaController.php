@@ -70,9 +70,6 @@ class AnggotaController extends Controller
                     ->withInput();
         }
         
-        
-        
-        
         $anggota->nama = $request->nama;
         $anggota->email = $request->email;
         if($id_name == 'dosen') {

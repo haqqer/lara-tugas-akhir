@@ -23,8 +23,7 @@
                             <tr>
                             <th>No</th>
                             <th>Judul</th>
-                            <th>Kategori</th>
-                            <th>deskripsi</th>
+                            <th>Kategori</th>   
                             <th>foto</th>
                             <th>Created</th>
                             <th>Update</th>
@@ -37,15 +36,14 @@
                                 <td>{{ $i++ }}</td>
                                 <td>{{ $berita->judul }}</td>
                                 <td>{{ $berita->kategori->nama }}</td>
-                                <td>{{ substr($berita->deskripsi, 0, 30) }}</td>
                                 <td>
                                     <img width="100px" height="auto" src="{{ asset('uploads/images/berita') }}/{{ $berita->foto }}" alt="">
                                 </td>
                                 <td>{{ $berita->created_at->diffForHumans() }}</td>
                                 <td>{{ $berita->updated_at->diffForHumans() }}</td>
-                                <td><button type="button" class="show btn btn-outline-primary" data-toggle="modal" data-target="#View" id="{{ $berita->id }}">View</button>|
+                                <td><a class="show btn btn-outline-primary" href="{{ url('admin/berita') }}/{{ $berita->id }}/show" id="{{ $berita->id }}">View</a>
                                     <button type="button" class="delete btn btn-outline-danger" id="{{ $berita->id }}">Hapus</button>|
-                                    <button type="button" class="edit btn btn-outline-success" id="{{ $berita->id }}">Edit</button></td>
+                                    <a class="edit btn btn-outline-success" id="{{ $berita->id }}" href="{{ url('admin/berita') }}/{{ $berita->id }}/edit">Edit</button></td>
                             </tr>
                             @endforeach
                     </tbody>
@@ -53,4 +51,32 @@
             </div>
     </div>
 </div>
+<script>
+        $('.delete').click(function(e) {
+            e.preventDefault();
+            var id = $(this).attr('id');
+            swal({
+                title: "Hapus Data",
+                text: "Anda yakin ingin menghapus data",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+            if(willDelete) {
+                $.ajax({
+                    type: 'GET',
+                    url: 'berita/'+id+'/delete',
+                    dataType: "JSON",
+                    success: function(data) {
+                        swal("Data Telah dihapus", {
+                            icon: "success"
+                        }).then(() => {
+                            location.reload();
+                        })
+                    }
+                })
+            }
+        });                     
+    })        
+</script>
 @endsection
