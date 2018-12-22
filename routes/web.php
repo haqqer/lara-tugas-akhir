@@ -42,5 +42,13 @@ Route::prefix('admin')->group(function() {
     Route::prefix('kategori')->group(function() {
         Route::get('/', 'KategoriController@index');
     });
+    Route::prefix('kegiatan')->group(function() {
+        Route::get('/', 'KegiatanController@index');
+        Route::get('/{id}/show', 'KegiatanController@show', 'id');
+        Route::get('/create', 'KegiatanController@create');
+        Route::get('/{id}/edit', 'KegiatanController@edit', 'id');
+        Route::post('/{id?}', 'KegiatanController@store', 'id');
+        Route::get('/{id}/delete', 'KegiatanController@delete', 'id');
+    });
 });
 
