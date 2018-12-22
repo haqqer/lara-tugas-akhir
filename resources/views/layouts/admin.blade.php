@@ -66,7 +66,13 @@
                     <a href="#" id="materi">Materi</a>
                 </li>
                 <li>
-                    <a href="#" id="kegiatan">Kegiatan</a>
+                    <a class="dropdown-toggle" href="{{ url('admin/kegiatan') }}" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Kegiatan
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown3">
+                        <a class="dropdown-item text-dark" href="{{ url('admin/kegiatan') }}">All</a>
+                        <a class="dropdown-item text-dark" href="{{ url('admin/kegiatan/create') }}">Buat baru</a>
+                    </div>
                 </li>
             </ul>
         </div>

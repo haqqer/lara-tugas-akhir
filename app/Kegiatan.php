@@ -9,7 +9,7 @@ class Kegiatan extends Model
     protected $table = 'kegiatan';
     
     protected $fillable = [
-        'user_id','judul','deskripsi','tempat','waktu'
+        'user_id','judul','deskripsi','tempat','waktu','jenis'
     ];
 
     public function user() {

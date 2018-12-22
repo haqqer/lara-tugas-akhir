@@ -29,6 +29,10 @@
                                     <label for="kegiatan" >kegiatan</label>
                                     <div class="">
                                         <select class="form-control" id="jenis" name="jenis">
+                                            <option selected>-- Pilih Jenis Kegiatan --</option>
+                                            <option value="workshop">Workshop</option>
+                                            <option value="seminar">Seminar</option>
+                                            <option value="diskusi">Diskusi</option>
                                         </select>                                        
 
                                         @if ($errors->has('jenis'))
@@ -40,7 +44,7 @@
                                 </div>
 
                                 <div class="form-group ">
-                                    <label for="deskripsi" >Content</label>
+                                    <label for="deskripsi" >Deskripsi</label>
 
                                     <div class="">
                                         <!-- <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="l" value="{{ old('email') }}" required> -->
@@ -53,6 +57,32 @@
                                         @endif
                                     </div>
                                 </div>
+
+                                <div class="form-group">
+                                    <label for="waktu">waktu</label>
+                                    <div class="">
+                                        <input id="waktu" type="date" class="form-control{{ $errors->has('waktu') ? ' is-invalid' : '' }}" name="waktu" value="{{ old('waktu') }}" required autofocus>
+
+                                        @if ($errors->has('waktu'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('waktu') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="tempat">tempat</label>
+                                    <div class="">
+                                        <input id="tempat" type="string" class="form-control{{ $errors->has('tempat') ? ' is-invalid' : '' }}" name="tempat" value="{{ old('tempat') }}" required autofocus>
+
+                                        @if ($errors->has('tempat'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('tempat') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>                                
 
                                 <div class="form-group ">
                                     <label for="file" >File Foto</label>
@@ -94,21 +124,6 @@
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
-    });
-    $(document).ready(function(e) {
-        $.ajax({
-            type: 'GET',
-            url: '{{ url("admin/kegiatan") }}',
-            dataType: 'JSON',
-            success: function(data) {
-                var kegiatan = $('#kegiatan');
-                kegiatan.empty();
-                kegiatan.append('<option selected>-- Pilih kegiatan --</option>')
-                for(var i=0;i<data.length;i++) {
-                    kegiatan.append('<option value='+data[i].id+'>'+data[i].nama+'</option>');
-                }      
-            }
-        })
     });
     $('#editor').ckeditor();
     // $('.textarea').ckeditor(); // if class is prefered.

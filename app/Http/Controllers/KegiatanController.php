@@ -13,8 +13,8 @@ use Auth;
 class KegiatanController extends Controller
 {
     public function index() {
-        $kegiatan = new Kegiatan;
-        $kegiatans = $kegiatan->all();
+        kegiatan = new Kegiatan;
+        kegiatans = kegiatan->all();
         $i = 1;
         return view('kegiatan.index', compact('kegiatans', 'i'));
     }
@@ -25,16 +25,17 @@ class KegiatanController extends Controller
 
     public function store(Request $request, $id=0) {
         // Validasi data yang masuk
-        $kegiatan = new Kegiatan;
+        kegiatan = new Kegiatan;
         $validatedData = Validator::make($request->all(),   [
             'judul' => ['required', 'string', 'max:100'],
-            'deskrispsi' => ['required'],
-            'jenis' => ['required', 'string'],
-            'tempat' => ['required','string'],
+            'jenis' => ['required'],
+            'deskripsi' => ['required'],
+            'waktu' => ['required'],
+            'tempat' => ['required','string'],  
             'foto' => ['mimes:jpeg,jpg,png']
         ]);
         if($id != 0) {
-            $kegiatan = kegiatan::findOrFail($id);
+            $kegiatan = Kegiatan::findOrFail($id);
         }
 
         //Apabila Error maka halaman akan redirect ke halaman sebelumnya
@@ -50,6 +51,8 @@ class KegiatanController extends Controller
         $kegiatan->jenis = $request->jenis;
         $kegiatan->judul = $request->judul;
         $kegiatan->deskripsi = $request->deskripsi;
+        $kegiatan->tempat = $request->tempat;
+        $kegiatan->waktu = $request->waktu;
 
         // Image File Handler
         if($request->hasFile('foto')) {
@@ -64,8 +67,30 @@ class KegiatanController extends Controller
         }
         // Apabila sukses di save
         if($kegiatan->save()) {
-            // return redirect()->json($kegiatan);
-            return redirect('admin/kegiatan')->with('success-msg', 'Data berhasil disimpan');
+            // return redirect()->json(kegiatan);
+            return redirect('admin/$kegiatan')->with('success-msg', 'Data berhasil disimpan');
         }
     }
+
+    public function view($id) {
+        $kegiatan = Kegiatan::findOrFail($id);
+        return response()->json('$kegiatan');
+    }
+
+    public function edit($id) {
+        $kegiatan = Kegiatan::findOrFail($id);
+        return view('kegiatan.edit', compact('$kegiatan'));
+    }
+
+    public function show($id) {
+        $kegiatan = Kegiatan::findOrFail($id);
+        return view('kegiatan.view', compact('kegiatan'));
+    }
+
+    public function delete($id) {
+        $kegiatan = Kegiatan::findOrFail($id);
+        $kegiatan->delete();
+        return response()->json('kegiatan');
+    }
+}
 }

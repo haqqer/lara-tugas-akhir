@@ -14,7 +14,7 @@ class AddJenisToKegiatan extends Migration
     public function up()
     {
         Schema::table('kegiatan', function (Blueprint $table) {
-            $table->string('jenis');
+            $table->string('foto');
         });
     }
 
