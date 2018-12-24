@@ -52,11 +52,11 @@ Route::prefix('admin')->group(function() {
         Route::get('/{id}/delete', 'KegiatanController@delete', 'id');
     });
     Route::prefix('download')->group(function() {
-        Route::get('/', 'AnggotaController@index');
-        Route::post('/', 'AnggotaController@store');
-        Route::get('/{id}', 'AnggotaController@show', 'id');
-        Route::post('/{id?}', 'AnggotaController@store', 'id');
-        Route::get('/{id}/delete', 'AnggotaController@delete', 'id');
+        Route::get('/', 'DownloadController@index');
+        Route::post('/', 'DownloadController@store');
+        Route::get('/{id}', 'DownloadController@show', 'id');
+        Route::post('/{id?}', 'DownloadController@store', 'id');
+        Route::get('/{id}/delete', 'DownloadController@delete', 'id');
     });
 });
 

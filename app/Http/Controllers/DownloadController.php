@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Session;
+
+use Auth;
 
 use App\Daftardl;
 
@@ -12,7 +16,7 @@ class DownloadController extends Controller
         $this->middleware('auth');
     }
 
-    public function index($id_name) {
+    public function index() {
         $daftardl = new Daftardl;
         $daftardls = $daftardl->all();
         $i = 1;
@@ -23,11 +27,20 @@ class DownloadController extends Controller
     public function store(Request $request, $id=0) {
         $daftardl = new Daftardl;
         // Validasi data yang masuk
-        $validatedData = Validator::make($request->all(),   [
-            'nama' => ['required', 'string', 'max:100'],
-            'deskripsi' => ['required'],
-            'file' => ['required']
-        ]);
+        if($id != 0) {
+            $daftardl = Daftardl::findOrFail($id);
+            $validatedData = Validator::make($request->all(),   [
+                'nama' => ['required', 'string', 'max:100'],
+                'deskripsi' => ['required']
+            ]);
+        } else {
+            $validatedData = Validator::make($request->all(),   [
+                'nama' => ['required', 'string', 'max:100'],
+                'deskripsi' => ['required'],
+                'file' => ['required']
+            ]);    
+        }
+        
         //Apabila Error maka halaman akan redirect ke halaman sebelumnya
         if($validatedData->fails()) {
             Session::flash('error', $validatedData->messages()->first());
@@ -36,15 +49,16 @@ class DownloadController extends Controller
                     ->withErrors($validatedData)
                     ->withInput();
         }
-        
+
+        $daftardl->user_id = Auth::user()->id;
         $daftardl->nama = $request->nama;
         $daftardl->deskripsi = $request->deskripsi;
 
         // Image File Handler
         if($request->hasFile('file')) {
             $image_file = $request->file('file');
-            $image_name = 'file'.time().$image_file->getClientOriginalExtension();
-            $uploaded = $image_file->move(public_path('uploads/download/'.$id_name.'/'),$image_name);
+            $image_name = 'file'.time().'.'.$image_file->getClientOriginalExtension();
+            $uploaded = $image_file->move(public_path('uploads/download/'),$image_name);
             if($uploaded) {
                 $daftardl->file = $image_name;
             } else {

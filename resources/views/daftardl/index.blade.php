@@ -15,7 +15,7 @@
             @endif
             <!-- EndFlash -->
         <div class="card">
-            <div class="card-header">{{ $id_name }}</div>
+            <div class="card-header">{{ __('Input Download') }}</div>
 
                 <div class="card-body">
                     <!-- Form Input Anggota -->
@@ -37,7 +37,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="deskripsi" class="col-md-4 col-form-label text-md-right">Email</label>
+                            <label for="deskripsi" class="col-md-4 col-form-label text-md-right">Deskripsi</label>
 
                             <div class="col-md-6">
                                 <input id="deskripsi" type="text" class="form-control{{ $errors->has('deskripsi') ? ' is-invalid' : '' }}" name="deskripsi" value="{{ old('deskripsi') }}" required>
@@ -54,7 +54,7 @@
                             <label for="file" class="col-md-4 col-form-label text-md-right">File</label>
 
                             <div class="col-md-6">
-                                <input id="file" type="file" accept="image/*" class="form-control-file{{ $errors->has('file') ? ' is-invalid' : '' }}" name="file" required>
+                                <input id="file" type="file" class="form-control-file{{ $errors->has('file') ? ' is-invalid' : '' }}" name="file" required>
 
                                 @if ($errors->has('file'))
                                     <span class="invalid-feedback" role="alert">
@@ -96,11 +96,11 @@
                         </thead>
                         <tbody>
                             @foreach($daftardls as $download)
-                            <tr id="{{ {{ $download->id }}">
+                            <tr id="{{  $download->id }}">
                                 <td>{{ $i++ }}</td>
                                 <td>{{ $download->nama }}</td>
                                 <td>{{ $download->deskripsi }}</td>
-                                <td>{{ $download->file }}</td>
+                                <td><a href="{{ asset('uploads/donwload') }}/{{ $download->file }}" download>Download</a></td>
                                 <td>{{ $download->created_at->diffForHumans() }}</td>
                                 <td>{{ $download->updated_at->diffForHumans() }}</td>
                                 <td><button type="button" class="show btn btn-outline-primary" data-toggle="modal" data-target="#View" id="{{ $download->id }}">View</button>|
@@ -161,7 +161,6 @@
     // Menampilkan Detail download dengan Modal
     $('.show').click(function(e) {
         let id = $(this).attr('id');
-        let express = $('{{ $id_name }}'+"_"+id).val();
         $.ajax({
             type: "GET",
             url: id,
@@ -177,15 +176,14 @@
     // Edit Handler, ketika tombol Edit, di klik akan otomatis mengisi form diatas
     $('.edit').click(function(e) {
         let id = $(this).attr('id');
-        let express = $('{{ $id_name }}'+"_"+id).val();
         $.ajax({
             type: "GET",
-            url: id,
+            url: "{{ url('admin/download') }}/"+id,
             dataType: "JSON",
             success: function(data) {
                 $('#nama').val(data.nama);
                 $('#deskripsi').val(data.deskripsi);
-                $('form').attr('action', "{{ url('admin/download/'.$id_name) }}"+"/"+id);
+                $('form').attr('action', "{{ url('admin/download') }}"+"/"+id);
                 $('#file').prop('required', false);
             }
         })
@@ -195,7 +193,6 @@
     $('.delete').click(function(e) {
         var id = $(this).attr('id');
         console.log(id);
-        var express = $('{{ $id_name }}'+"_"+id).val();
         swal({
             title: "Hapus Data",
             text: "Anda yakin ingin menghapus data",
