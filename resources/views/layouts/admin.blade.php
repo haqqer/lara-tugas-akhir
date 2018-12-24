@@ -38,7 +38,7 @@
                     <a href="#" id="dashboard" onclick="loadPHP('dashboard')">Dashboard</a>
                 </li>
                 <li>
-                    <a href="#" id="penelitian">Penelitian</a>
+                    <a href="" id="penelitian">Penelitian</a>
                 </li>
                 <li class="dropdown">
                     <a class="dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

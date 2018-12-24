@@ -22,6 +22,10 @@ Route::get('/admin', function() {
     return view('layouts/admin');
 })->name('admin')->middleware('auth');
 
+Route::get('/', function() {
+    return view('index');
+});
+
 Route::prefix('admin')->group(function() {
     // Route::get('/', '');dosen
     Route::prefix('anggota')->group(function() {
