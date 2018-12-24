@@ -26,7 +26,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="kegiatan" >kegiatan</label>
+                                    <label for="kegiatan" >Jenis Kegiatan</label>
                                     <div class="">
                                         <select class="form-control" id="jenis" name="jenis">
                                             <option selected>-- Pilih Jenis Kegiatan --</option>
@@ -59,9 +59,22 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label for="tanggal">tanggal</label>
+                                    <div class="">
+                                        <input id="tanggal" type="date" class="form-control{{ $errors->has('tanggal') ? ' is-invalid' : '' }}" name="tanggal" value="{{ old('tanggal') }}" required autofocus>
+
+                                        @if ($errors->has('tanggal'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('tanggal') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
                                     <label for="waktu">waktu</label>
                                     <div class="">
-                                        <input id="waktu" type="datetime-local" class="form-control{{ $errors->has('waktu') ? ' is-invalid' : '' }}" name="waktu" value="{{ old('waktu') }}" required autofocus>
+                                        <input id="waktu" type="time" class="form-control{{ $errors->has('waktu') ? ' is-invalid' : '' }}" name="waktu" value="{{ old('waktu') }}" required autofocus>
 
                                         @if ($errors->has('waktu'))
                                             <span class="invalid-feedback" role="alert">

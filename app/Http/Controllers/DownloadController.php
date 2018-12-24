@@ -1,0 +1,73 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+use App\Daftardl;
+
+class DownloadController extends Controller
+{
+    public function __construct() {
+        $this->middleware('auth');
+    }
+
+    public function index($id_name) {
+        $daftardl = new Daftardl;
+        $daftardls = $daftardl->all();
+        $i = 1;
+        
+        return view('daftardl.index', compact('daftardls', 'i'));
+    }
+
+    public function store(Request $request, $id=0) {
+        $daftardl = new Daftardl;
+        // Validasi data yang masuk
+        $validatedData = Validator::make($request->all(),   [
+            'nama' => ['required', 'string', 'max:100'],
+            'deskripsi' => ['required'],
+            'file' => ['required']
+        ]);
+        //Apabila Error maka halaman akan redirect ke halaman sebelumnya
+        if($validatedData->fails()) {
+            Session::flash('error', $validatedData->messages()->first());
+            return redirect()
+                    ->back()
+                    ->withErrors($validatedData)
+                    ->withInput();
+        }
+        
+        $daftardl->nama = $request->nama;
+        $daftardl->deskripsi = $request->deskripsi;
+
+        // Image File Handler
+        if($request->hasFile('file')) {
+            $image_file = $request->file('file');
+            $image_name = 'file'.time().$image_file->getClientOriginalExtension();
+            $uploaded = $image_file->move(public_path('uploads/download/'.$id_name.'/'),$image_name);
+            if($uploaded) {
+                $daftardl->file = $image_name;
+            } else {
+                return redirect()->back()->with('fail-msg','failed to upload file');
+            }
+        }
+        // Apabila sukses di save
+        if($daftardl->save()) {
+            return back()->with('success-msg', 'Data Berhasil di simpan');
+        }
+    }
+    // Show Detail Method
+    public function show($id) {
+        $daftardl = new Daftardl;
+        $data = $daftardl->findOrFail($id);
+        return response()->json($data);
+    }
+
+    public function delete($id) {
+        $daftardl = new Daftardl;
+        $data = $daftardl->findOrFail($id);
+        $data->delete();
+        return response()->json($data);
+        // return back();
+    }
+}

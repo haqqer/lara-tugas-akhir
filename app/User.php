@@ -43,4 +43,8 @@ class User extends Authenticatable
     public function materi() {
         return $this->hasMany('App\materi', 'user_id');
     }
+
+    public function daftardl() {
+        return $this->hasMany('App\Daftardl', 'user_id');
+    }
 }

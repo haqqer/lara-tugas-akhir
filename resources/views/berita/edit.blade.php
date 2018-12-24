@@ -5,7 +5,7 @@
     <div class="col-12">
         <div class="p-2">
             <a class="btn btn-outline-primary" href="{{ url('admin/berita/create') }}">Create</a>
-            <a class="show btn btn-outline-success" href="{{ url('admin/berita') }}/{{ $berita->id }}/view" id="{{ $berita->id }}">View</a>
+            <a class="show btn btn-outline-success" href="{{ url('admin/berita') }}/{{ $berita->id }}/show" id="{{ $berita->id }}">View</a>
             <button type="button" class="delete btn btn-outline-danger" id="{{ $berita->id }}">Hapus</button>
             <a class="btn btn-outline-secondary" href="{{ url('admin/berita') }}">Back</a>          
         </div>

@@ -23,6 +23,11 @@ class KegiatanController extends Controller
         return view('kegiatan.create');
     }
 
+    public function jenis_kegiatan() {
+        $data = ['workshop','seminar','diskusi'];
+        return response()->json($data);
+    }
+
     public function store(Request $request, $id=0) {
         // Validasi data yang masuk
         $kegiatan = new Kegiatan;
@@ -30,6 +35,7 @@ class KegiatanController extends Controller
             'judul' => ['required', 'string', 'max:100'],
             'jenis' => ['required'],
             'deskripsi' => ['required'],
+            'tanggal' => ['required'],
             'waktu' => ['required'],
             'tempat' => ['required','string'],  
             'foto' => ['mimes:jpeg,jpg,png']
@@ -52,7 +58,7 @@ class KegiatanController extends Controller
         $kegiatan->judul = $request->judul;
         $kegiatan->deskripsi = $request->deskripsi;
         $kegiatan->tempat = $request->tempat;
-        $kegiatan->waktu = $request->waktu;
+        $kegiatan->waktu = date('Y-m-d H:i:s', strtotime("$request->tanggal $request->waktu"));
 
         // Image File Handler
         if($request->hasFile('foto')) {
@@ -74,12 +80,12 @@ class KegiatanController extends Controller
 
     public function view($id) {
         $kegiatan = Kegiatan::findOrFail($id);
-        return response()->json('$kegiatan');
+        return response()->json($kegiatan);
     }
 
     public function edit($id) {
         $kegiatan = Kegiatan::findOrFail($id);
-        return view('kegiatan.edit', compact('$kegiatan'));
+        return view('kegiatan.edit', compact('kegiatan'));
     }
 
     public function show($id) {

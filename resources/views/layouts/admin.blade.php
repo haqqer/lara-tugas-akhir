@@ -60,7 +60,13 @@
                     </div>
                 </li>
                 <li>
-                    <a href="#" id="download">Download</a>
+                    <a class="dropdown-toggle" href="{{ url('admin/download') }}" id="navbarDropdown4" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Download
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown4">
+                        <a class="dropdown-item text-dark" href="{{ url('admin/download') }}">All</a>
+                        <a class="dropdown-item text-dark" href="{{ url('admin/download/create') }}">Buat baru</a>
+                    </div>
                 </li>
                 <li>
                     <a href="#" id="materi">Materi</a>

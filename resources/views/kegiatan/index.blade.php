@@ -3,6 +3,9 @@
 @section('content')
 <div class="row">
     <div class="col-12">
+        <div class="p-2">
+            <a class="btn btn-outline-primary" href="{{ url('admin/kegiatan/create') }}">Create</a>          
+        </div>
     </div>
     <div class="col-12">
             <!-- Flash Message baik sukses maupun error -->

@@ -45,10 +45,18 @@ Route::prefix('admin')->group(function() {
     Route::prefix('kegiatan')->group(function() {
         Route::get('/', 'KegiatanController@index');
         Route::get('/{id}/show', 'KegiatanController@show', 'id');
+        Route::get('/jenis_kegiatan', 'KegiatanController@jenis_kegiatan', 'id');
         Route::get('/create', 'KegiatanController@create');
         Route::get('/{id}/edit', 'KegiatanController@edit', 'id');
         Route::post('/{id?}', 'KegiatanController@store', 'id');
         Route::get('/{id}/delete', 'KegiatanController@delete', 'id');
+    });
+    Route::prefix('download')->group(function() {
+        Route::get('/', 'AnggotaController@index');
+        Route::post('/', 'AnggotaController@store');
+        Route::get('/{id}', 'AnggotaController@show', 'id');
+        Route::post('/{id?}', 'AnggotaController@store', 'id');
+        Route::get('/{id}/delete', 'AnggotaController@delete', 'id');
     });
 });
 
