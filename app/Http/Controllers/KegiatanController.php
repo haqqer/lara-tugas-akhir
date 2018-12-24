@@ -13,8 +13,8 @@ use Auth;
 class KegiatanController extends Controller
 {
     public function index() {
-        kegiatan = new Kegiatan;
-        kegiatans = kegiatan->all();
+        $kegiatan = new Kegiatan;
+        $kegiatans = $kegiatan->all();
         $i = 1;
         return view('kegiatan.index', compact('kegiatans', 'i'));
     }
@@ -25,7 +25,7 @@ class KegiatanController extends Controller
 
     public function store(Request $request, $id=0) {
         // Validasi data yang masuk
-        kegiatan = new Kegiatan;
+        $kegiatan = new Kegiatan;
         $validatedData = Validator::make($request->all(),   [
             'judul' => ['required', 'string', 'max:100'],
             'jenis' => ['required'],
@@ -68,7 +68,7 @@ class KegiatanController extends Controller
         // Apabila sukses di save
         if($kegiatan->save()) {
             // return redirect()->json(kegiatan);
-            return redirect('admin/$kegiatan')->with('success-msg', 'Data berhasil disimpan');
+            return redirect('admin/kegiatan')->with('success-msg', 'Data berhasil disimpan');
         }
     }
 
@@ -93,4 +93,4 @@ class KegiatanController extends Controller
         return response()->json('kegiatan');
     }
 }
-}
+

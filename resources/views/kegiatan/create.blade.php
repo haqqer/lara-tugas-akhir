@@ -61,7 +61,7 @@
                                 <div class="form-group">
                                     <label for="waktu">waktu</label>
                                     <div class="">
-                                        <input id="waktu" type="date" class="form-control{{ $errors->has('waktu') ? ' is-invalid' : '' }}" name="waktu" value="{{ old('waktu') }}" required autofocus>
+                                        <input id="waktu" type="datetime-local" class="form-control{{ $errors->has('waktu') ? ' is-invalid' : '' }}" name="waktu" value="{{ old('waktu') }}" required autofocus>
 
                                         @if ($errors->has('waktu'))
                                             <span class="invalid-feedback" role="alert">
