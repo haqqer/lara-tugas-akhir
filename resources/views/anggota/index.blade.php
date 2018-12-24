@@ -101,7 +101,6 @@
                             <th>No</th>
                             <th>Username</th>
                             <th>Email</th>
-                            <th>NIM / NPP</th>
                             <th>Created</th>
                             <th>Update</th>
                             <th>Action</th>
@@ -119,7 +118,6 @@
                                 <td>{{ $i++ }}</td>
                                 <td>{{ $anggota->nama }}</td>
                                 <td>{{ $anggota->email }}</td>
-                                <td>{{ $identitas }}</td>
                                 <td>{{ $anggota->created_at->diffForHumans() }}</td>
                                 <td>{{ $anggota->updated_at->diffForHumans() }}</td>
                                 <td><button type="button" class="show btn btn-outline-primary" data-toggle="modal" data-target="#View" id="{{ $anggota->id }}">View</button>|

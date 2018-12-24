@@ -25,6 +25,7 @@
                         <thead>
                             <tr>
                             <th>No</th>
+                            <th>Author</th>
                             <th>Judul</th>
                             <th>Jenis</th>   
                             <th>foto</th>
@@ -37,6 +38,7 @@
                             @foreach($kegiatans as $kegiatan)
                             <tr id="{{ $kegiatan->id }}">
                                 <td>{{ $i++ }}</td>
+                                <td>{{ $kegiatan->user->name }}</td>
                                 <td>{{ $kegiatan->judul }}</td>
                                 <td>{{ $kegiatan->jenis }}</td>
                                 <td>

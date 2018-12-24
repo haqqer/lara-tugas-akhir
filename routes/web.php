@@ -39,6 +39,14 @@ Route::prefix('admin')->group(function() {
         Route::post('/{id?}', 'BeritaController@store', 'id');
         Route::get('/{id}/delete', 'BeritaController@delete', 'id');
     });
+    Route::prefix('materi')->group(function() {
+        Route::get('/', 'MateriController@index');
+        Route::get('/{id}/show', 'MateriController@show', 'id');
+        Route::get('/create', 'MateriController@create');
+        Route::get('/{id}/edit', 'MateriController@edit', 'id');
+        Route::post('/{id?}', 'MateriController@store', 'id');
+        Route::get('/{id}/delete', 'MateriController@delete', 'id');
+    });
     Route::prefix('kategori')->group(function() {
         Route::get('/', 'KategoriController@index');
     });

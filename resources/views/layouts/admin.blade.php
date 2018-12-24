@@ -69,7 +69,13 @@
                     </div>
                 </li>
                 <li>
-                    <a href="#" id="materi">Materi</a>
+                    <a class="dropdown-toggle" href="{{ url('admin/materi') }}" id="navbarDropdown5" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Materi
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown5">
+                        <a class="dropdown-item text-dark" href="{{ url('admin/materi') }}">All</a>
+                        <a class="dropdown-item text-dark" href="{{ url('admin/materi/create') }}">Buat baru</a>
+                    </div>
                 </li>
                 <li>
                     <a class="dropdown-toggle" href="{{ url('admin/kegiatan') }}" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

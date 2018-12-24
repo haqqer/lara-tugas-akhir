@@ -4,7 +4,7 @@
 <div class="row">
     <div class="col-12">
         <div class="p-2">
-            <a class="btn btn-outline-primary" href="{{ url('admin/berita/create') }}">Create</a>          
+            <a class="btn btn-outline-primary" href="{{ url('admin/materi/create') }}">Create</a>          
         </div>
     </div>
     <div class="col-12">
@@ -25,30 +25,24 @@
                         <thead>
                             <tr>
                             <th>No</th>
-                            <th>Author</th>
                             <th>Judul</th>
-                            <th>Kategori</th>   
-                            <th>foto</th>
+                            <th>Author</th>   
                             <th>Created</th>
                             <th>Update</th>
                             <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($beritas as $berita)
-                            <tr id="{{ $berita->id }}">
+                            @foreach($materis as $materi)
+                            <tr id="{{ $materi->id }}">
                                 <td>{{ $i++ }}</td>
-                                <td>{{ $berita->user->name }}</td>
-                                <td>{{ $berita->judul }}</td>
-                                <td>{{ $berita->kategori->nama }}</td>
-                                <td>
-                                    <img width="100px" height="auto" src="{{ asset('uploads/images/berita') }}/{{ $berita->foto }}" alt="">
-                                </td>
-                                <td>{{ $berita->created_at->diffForHumans() }}</td>
-                                <td>{{ $berita->updated_at->diffForHumans() }}</td>
-                                <td><a class="show btn btn-outline-primary" href="{{ url('admin/berita') }}/{{ $berita->id }}/show" id="{{ $berita->id }}">View</a>
-                                    <button type="button" class="delete btn btn-outline-danger" id="{{ $berita->id }}">Hapus</button>|
-                                    <a class="edit btn btn-outline-success" id="{{ $berita->id }}" href="{{ url('admin/berita') }}/{{ $berita->id }}/edit">Edit</button></td>
+                                <td>{{ $materi->judul }}</td>
+                                <td>{{ $materi->user->name }}</td>
+                                <td>{{ $materi->created_at->diffForHumans() }}</td>
+                                <td>{{ $materi->updated_at->diffForHumans() }}</td>
+                                <td><a class="show btn btn-outline-primary" href="{{ url('admin/materi') }}/{{ $materi->id }}/show" id="{{ $materi->id }}">View</a>
+                                    <button type="button" class="delete btn btn-outline-danger" id="{{ $materi->id }}">Hapus</button>|
+                                    <a class="edit btn btn-outline-success" id="{{ $materi->id }}" href="{{ url('admin/materi') }}/{{ $materi->id }}/edit">Edit</button></td>
                             </tr>
                             @endforeach
                     </tbody>
@@ -70,7 +64,7 @@
             if(willDelete) {
                 $.ajax({
                     type: 'GET',
-                    url: 'berita/'+id+'/delete',
+                    url: 'materi/'+id+'/delete',
                     dataType: "JSON",
                     success: function(data) {
                         swal("Data Telah dihapus", {
