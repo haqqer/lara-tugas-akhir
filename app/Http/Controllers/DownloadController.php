@@ -24,6 +24,11 @@ class DownloadController extends Controller
         return view('daftardl.index', compact('daftardls', 'i'));
     }
 
+    public function kategori() {
+        $data = ['ebook','jurnal'];
+        return response()->json($data);
+    }
+
     public function store(Request $request, $id=0) {
         $daftardl = new Daftardl;
         // Validasi data yang masuk
@@ -53,7 +58,7 @@ class DownloadController extends Controller
         $daftardl->user_id = Auth::user()->id;
         $daftardl->nama = $request->nama;
         $daftardl->deskripsi = $request->deskripsi;
-
+        $daftardl->kategori = $request->kategori;
         // Image File Handler
         if($request->hasFile('file')) {
             $image_file = $request->file('file');

@@ -37,6 +37,24 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="kategori" class="col-md-4 col-form-label text-md-right">Kategori</label>
+
+                            <div class="col-md-6">
+                                <!-- <input id="kategori" type="text" class="form-control{{ $errors->has('kategori') ? ' is-invalid' : '' }}" name="kategori" value="{{ old('kategori') }}" required> -->
+                                <select name="kategori" id="kategori" class="form-control">
+                                        <option selected>-- Pilih Kategori --</option>
+                                        <option value="jurnal">jurnal</option>
+                                        <option value="ebook">ebook</option>
+                                </select>
+                                @if ($errors->has('kategori'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('kategori') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="deskripsi" class="col-md-4 col-form-label text-md-right">Deskripsi</label>
 
                             <div class="col-md-6">
@@ -88,6 +106,7 @@
                             <th>No</th>
                             <th>Nama</th>
                             <th>Deskripsi</th>
+                            <th>Kategori</th>
                             <th>File</th>
                             <th>Created</th>
                             <th>Update</th>
@@ -100,6 +119,7 @@
                                 <td>{{ $i++ }}</td>
                                 <td>{{ $download->nama }}</td>
                                 <td>{{ $download->deskripsi }}</td>
+                                <td>{{ $download->kategori }}</td>
                                 <td><a href="{{ asset('uploads/donwload') }}/{{ $download->file }}" download>Download</a></td>
                                 <td>{{ $download->created_at->diffForHumans() }}</td>
                                 <td>{{ $download->updated_at->diffForHumans() }}</td>
@@ -186,7 +206,27 @@
                 $('form').attr('action', "{{ url('admin/download') }}"+"/"+id);
                 $('#file').prop('required', false);
             }
+        });
+        $.ajax({
+            type: "GET",
+            url: "download/kategori",
+            dataType: "JSON",
+            success: function(data) {
+                var i;
+                var kategori=$('#kategori');
+                kategori.empty();
+                kategori.append('<option>-- Pilih Kategori --</option>');
+                for(i=0;i<data.length; i++) {
+                    if(data[i] == '{{ $download->kategori }}') {
+                        kategori.append('<option value='+data[i]+' selected>'+data[i]+'</option>');
+                    } else {
+                        kategori.append('<option value='+data[i]+'>'+data[i]+'</option>');
+                    }
+                }
+            }
         })
+        // $('#kategori option').text();
+        console.log($('#kategori option').text())
     });
 
     // Delete Handler, ketika tombol Delete, di klik akan otomatis mengisi form diatas

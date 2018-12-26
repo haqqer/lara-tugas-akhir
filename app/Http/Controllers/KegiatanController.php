@@ -24,7 +24,7 @@ class KegiatanController extends Controller
     }
 
     public function jenis_kegiatan() {
-        $data = ['workshop','seminar','diskusi'];
+        $data = ['workshop','klinik','lomba'];
         return response()->json($data);
     }
 

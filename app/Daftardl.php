@@ -8,7 +8,7 @@ class Daftardl extends Model
 {
     protected $table = 'daftardl';
     protected $fillable = [
-        'user_id','nama','deskripsi','file'
+        'user_id','nama','deskripsi','file','kategori'
     ];
     public function user()
     {

@@ -57,7 +57,7 @@ Route::prefix('admin')->group(function() {
     Route::prefix('kegiatan')->group(function() {
         Route::get('/', 'KegiatanController@index');
         Route::get('/{id}/show', 'KegiatanController@show', 'id');
-        Route::get('/jenis_kegiatan', 'KegiatanController@jenis_kegiatan', 'id');
+        Route::get('/jenis_kegiatan', 'KegiatanController@jenis_kegiatan');
         Route::get('/create', 'KegiatanController@create');
         Route::get('/{id}/edit', 'KegiatanController@edit', 'id');
         Route::post('/{id?}', 'KegiatanController@store', 'id');
@@ -66,6 +66,7 @@ Route::prefix('admin')->group(function() {
     Route::prefix('download')->group(function() {
         Route::get('/', 'DownloadController@index');
         Route::post('/', 'DownloadController@store');
+        Route::get('/kategori', 'DownloadController@kategori');
         Route::get('/{id}', 'DownloadController@show', 'id');
         Route::post('/{id?}', 'DownloadController@store', 'id');
         Route::get('/{id}/delete', 'DownloadController@delete', 'id');
