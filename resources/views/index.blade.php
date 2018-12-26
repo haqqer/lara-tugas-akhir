@@ -12,7 +12,9 @@
 
     <!-- Bootstrap core CSS -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>    
     <!-- Custom styles for this template -->
     <!-- <link href="css/modern-business.css" rel="stylesheet"> -->
     <style>
@@ -28,41 +30,44 @@
     <!-- Navigation -->
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
-        <a class="navbar-brand" href="index.html">Start Bootstrap</a>
+        <a class="navbar-brand" href="index.html">LabRPL</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
+            <li class="nav-item active">
               <a class="nav-link" href="about.html">Home</a>
             </li>
-            <li class="nav-item active">
-              <a class="nav-link" href="services.html">Penelitian</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="contact.html">Anggota</a>
-            </li>
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Portfolio
+              <a class="nav-link dropdown-toggle" href="#" id="Penelitian" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Penelitian
               </a>
-              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
-                <a class="dropdown-item" href="portfolio-1-col.html">1 Column Portfolio</a>
-                <a class="dropdown-item" href="portfolio-2-col.html">2 Column Portfolio</a>
-                <a class="dropdown-item" href="portfolio-3-col.html">3 Column Portfolio</a>
-                <a class="dropdown-item" href="portfolio-4-col.html">4 Column Portfolio</a>
-                <a class="dropdown-item" href="portfolio-item.html">Single Portfolio Item</a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="Penelitian">
+                <a class="dropdown-item" href="#">Topik Research</a>
+                <a class="dropdown-item" href="#">Publikasi</a>
               </div>
             </li>
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Blog
+              <a class="nav-link dropdown-toggle" href="#" id="Anggota" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Anggota
               </a>
-              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
-                <a class="dropdown-item" href="blog-home-1.html">Blog Home 1</a>
-                <a class="dropdown-item" href="blog-home-2.html">Blog Home 2</a>
-                <a class="dropdown-item" href="blog-post.html">Blog Post</a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="Anggota">
+                <a class="dropdown-item" href="#dosen">Dosen</a>
+                <a class="dropdown-item" href="#mahasiswa">Mahasiswa</a>
+                <a class="dropdown-item" href="#alumni">Alumni</a>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#berita">Informasi</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="Download" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Download
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="Download">
+                <a class="dropdown-item" href="blog-home-1.html">Jurnal</a>
+                <a class="dropdown-item" href="blog-home-2.html">EBooks</a>
               </div>
             </li>
             <li class="nav-item dropdown">
@@ -83,19 +88,11 @@
     </nav>
 
     <!-- Page Content -->
-    <div class="container">
-
+    <div class="container" id="content">
       <!-- Page Heading/Breadcrumbs -->
-      <h1 class="mt-4 mb-3">Services
-        <small>Subheading</small>
+      <h1 class="mt-4 mb-3">Lab
+        <small>Rekayasa Perangkat Lunak</small>
       </h1>
-
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-          <a href="index.html">Home</a>
-        </li>
-        <li class="breadcrumb-item active">Services</li>
-      </ol>
 
       <!-- Image Header -->
       <img class="img-fluid rounded mb-4" src="http://placehold.it/1200x300" alt="">
@@ -142,17 +139,42 @@
     <!-- /.container -->
 
     <!-- Footer -->
-    <footer class="py-5 bg-dark">
+    <footer class="py-3 mt-5 bg-dark">
       <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2018</p>
+        <p class="m-0 text-center text-white">Copyright &copy; Haqqer 2018</p>
       </div>
       <!-- /.container -->
     </footer>
 
-    <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script>
 
+      $('a[href="#mahasiswa"]').click(function() {
+        loadPHP('mahasiswa');
+      });
+
+      $('a[href="#dosen"]').click(function() {
+        loadPHP('dosen');
+      });
+
+      $('a[href="#alumni"]').click(function() {
+        loadPHP('alumni');
+      });
+
+      $('a[href="#berita"]').click(function() {
+        loadPHP('berita');
+      });      
+
+      function loadPHP(id_name) {
+          $.ajax({
+            type: "GET",
+            url: "api/"+id_name,
+            success: function(data) {
+              $('#content').empty();
+              $('#content').html(data);
+            }
+          })
+      }
+    </script>
   </body>
 
 </html>
