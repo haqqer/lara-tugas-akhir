@@ -1,22 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="id">
   <head>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Modern Business - Start Bootstrap Template</title>
+    <title>LabRPL - Website</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>    
-    <!-- Custom styles for this template -->
-    <!-- <link href="css/modern-business.css" rel="stylesheet"> -->
     <style>
         body {
           padding-top: 54px;
@@ -37,7 +33,7 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="about.html">Home</a>
+              <a class="nav-link" href="{{ url('/') }}">Home</a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="Penelitian" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -66,22 +62,47 @@
                 Download
               </a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="Download">
-                <a class="dropdown-item" href="blog-home-1.html">Jurnal</a>
-                <a class="dropdown-item" href="blog-home-2.html">EBooks</a>
+                <a class="dropdown-item" href="#downloadjurnal">Jurnal</a>
+                <a class="dropdown-item" href="#downloadebook">EBooks</a>
               </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#materi">Materi</a>
             </li>
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Other Pages
+              <a class="nav-link dropdown-toggle" href="#kegiatan" id="Kegiatan" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Kegiatan
               </a>
-              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
-                <a class="dropdown-item" href="full-width.html">Full Width Page</a>
-                <a class="dropdown-item" href="sidebar.html">Sidebar Page</a>
-                <a class="dropdown-item" href="faq.html">FAQ</a>
-                <a class="dropdown-item" href="404.html">404</a>
-                <a class="dropdown-item" href="pricing.html">Pricing Table</a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="Kegiatan">
+                <a class="dropdown-item" href="#kegiatanworkshop">Workshop</a>
+                <a class="dropdown-item" href="#kegiatanklinik">Klinik</a>
+                <a class="dropdown-item" href="#kegiatanlomba">Lomba</a>
               </div>
             </li>
+        @guest
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+            </li>
+        @else
+            <li class="nav-item dropdown">
+                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                    {{ Auth::user()->name }} <span class="caret"></span>
+                </a>
+
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                                      document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }}
+                    </a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                </div>
+            </li>
+        @endguest
+
           </ul>
         </div>
       </div>
@@ -162,7 +183,27 @@
 
       $('a[href="#berita"]').click(function() {
         loadPHP('berita');
-      });      
+      });
+
+      $('a[href="#materi"]').click(function() {
+        loadPHP('materi');
+      });
+      
+      $('a[href="#kegiatanworkshop"]').click(function() {
+        loadPHP('kegiatanworkshop');
+      });
+
+      $('a[href="#kegiatanklinik"]').click(function() {
+        loadPHP('kegiatanklinik');
+      });
+
+      $('a[href="#downloadjurnal"]').click(function() {
+        loadPHP('downloadjurnal');
+      });
+
+      $('a[href="#downloadebook"]').click(function() {
+        loadPHP('downloadebook');
+      });            
 
       function loadPHP(id_name) {
           $.ajax({
