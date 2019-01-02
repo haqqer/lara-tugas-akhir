@@ -32,7 +32,9 @@ class MainController extends Controller
         return response()->json($data);
     }
     
-    public function kegiatan($jenis) {
-
+    public function landing($id) {
+        $class = '\App\\'.ucfirst($id);
+        $data = $class::take(3)->get();
+        return response()->json($data);
     }
 }

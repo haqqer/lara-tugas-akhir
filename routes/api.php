@@ -18,4 +18,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/{id?}', 'MainController@index', 'id');
+Route::get('/landing/{id?}', 'MainController@landing', 'id');
 Route::get('/{id_name}/{id?}', 'MainController@show', 'id_name', 'id');

@@ -116,10 +116,16 @@
       </h1>
 
       <!-- Image Header -->
-      <img class="img-fluid rounded mb-4" src="http://placehold.it/1200x300" alt="">
+      <img class="img-fluid rounded mb-4" src="https://cdn-images-1.medium.com/max/2000/0*_v8Ttc88-qaAyTf3" alt="">
 
       <!-- Marketing Icons Section -->
       <div class="row">
+        <div class="col-12">
+          <h2>Berita</h2>
+        </div>
+      </div>
+      <div class="row">
+        
         <div class="col-lg-4 mb-4">
           <div class="card h-100">
             <h4 class="card-header">Card Title</h4>
@@ -215,6 +221,16 @@
             }
           })
       }
+      $(document).ready(function() {
+        $.ajax({
+            type: "GET",
+            url: "api/landing",
+            success: function(data) {
+              $('#content').empty();
+              $('#content').html(data);
+            }
+        })
+      })
     </script>
   </body>
 
