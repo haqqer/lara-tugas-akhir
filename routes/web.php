@@ -71,5 +71,13 @@ Route::prefix('admin')->group(function() {
         Route::post('/{id?}', 'DownloadController@store', 'id');
         Route::get('/{id}/delete', 'DownloadController@delete', 'id');
     });
+    Route::prefix('publikasi')->group(function() {
+        Route::get('/', 'PublikasiController@index');
+        Route::get('/{id}/show', 'PublikasiController@show', 'id');
+        Route::get('/create', 'PublikasiController@create');
+        Route::get('/{id}/edit', 'PublikasiController@edit', 'id');
+        Route::post('/{id?}', 'PublikasiController@store', 'id');
+        Route::get('/{id}/delete', 'PublikasiController@delete', 'id');
+    });
 });
 

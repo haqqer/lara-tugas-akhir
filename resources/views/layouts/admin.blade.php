@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Simple Sidebar - Start Bootstrap Template</title>
+    <title>Dashboar - LabRPL</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -37,8 +37,15 @@
                 <li>
                     <a href="#" id="dashboard" onclick="loadPHP('dashboard')">Dashboard</a>
                 </li>
-                <li>
-                    <a href="" id="penelitian">Penelitian</a>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Penelitian
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item text-dark" href="{{ url('admin/topik') }}">Topik</a>
+                        <a class="dropdown-item text-dark" href="{{ url('admin/publikasi') }}">Publikasi</a>
+                        <a class="dropdown-item text-dark" href="{{ url('admin/publikasi/create') }}">Buat Publikasi</a>
+                    </div>
                 </li>
                 <li class="dropdown">
                     <a class="dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

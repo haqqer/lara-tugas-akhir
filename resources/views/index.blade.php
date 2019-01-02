@@ -124,43 +124,19 @@
           <h2>Berita</h2>
         </div>
       </div>
-      <div class="row">
-        
-        <div class="col-lg-4 mb-4">
-          <div class="card h-100">
-            <h4 class="card-header">Card Title</h4>
-            <div class="card-body">
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
-            </div>
-            <div class="card-footer">
-              <a href="#" class="btn btn-primary">Learn More</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 mb-4">
-          <div class="card h-100">
-            <h4 class="card-header">Card Title</h4>
-            <div class="card-body">
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis ipsam eos, nam perspiciatis natus commodi similique totam consectetur praesentium molestiae atque exercitationem ut consequuntur, sed eveniet, magni nostrum sint fuga.</p>
-            </div>
-            <div class="card-footer">
-              <a href="#" class="btn btn-primary">Learn More</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 mb-4">
-          <div class="card h-100">
-            <h4 class="card-header">Card Title</h4>
-            <div class="card-body">
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
-            </div>
-            <div class="card-footer">
-              <a href="#" class="btn btn-primary">Learn More</a>
-            </div>
-          </div>
-        </div>
+      <div class="row"  id="landing-berita">
       </div>
       <!-- /.row -->
+
+      <!-- Marketing Icons Section -->
+      <div class="row">
+        <div class="col-12">
+          <h2>Kegiatan</h2>
+        </div>
+      </div>
+      <div class="row"  id="landing-kegiatan">
+      </div>
+      <!-- /.row -->      
 
     </div>
     <!-- /.container -->
@@ -174,6 +150,54 @@
     </footer>
 
     <script>
+      $(document).ready(function() {
+        $.ajax({
+            type: "GET",
+            dataType: "JSON",
+            url: "api/landing/berita",
+            success: function(data) {
+              $('#landing-berita').empty();
+              for(i=0; i<data.length; i++) {
+                $('#landing-berita').append(
+                  '<div class="col-lg-4 mb-4"> \
+                    <div class="card h-100">\
+                      <img class="card-img-top" src="uploads/images/berita/'+data[i].foto+'" alt="Card image cap">\
+                      <div class="card-body">\
+                        <h5 class="card-title">'+data[i].judul+'</h5> \
+                      </div> \
+                      <div class="card-footer"> \
+                        <a href="#berita" class="btn btn-primary" onclick=loadPHP("berita")>Learn More</a> \
+                      </div> \
+                    </div>\
+                  </div>'
+                )    
+              }
+            }
+        });
+        $.ajax({
+            type: "GET",
+            dataType: "JSON",
+            url: "api/landing/kegiatan",
+            success: function(data) {
+              $('#landing-kegiatan').empty();
+              for(i=0; i<data.length; i++) {
+                $('#landing-kegiatan').append(
+                  '<div class="col-lg-4 mb-4"> \
+                    <div class="card h-100">\
+                      <img class="card-img-top" src="uploads/images/kegiatan/'+data[i].foto+'" alt="Card image cap">\
+                      <div class="card-body">\
+                        <h5 class="card-title">'+data[i].judul+'</h5> \
+                      </div> \
+                      <div class="card-footer"> \
+                        <a href="#kegiatan'+data[i].jenis+'" class="btn btn-primary">Learn More</a> \
+                      </div> \
+                    </div>\
+                  </div>'
+                )    
+              }
+            }
+        })
+      })
 
       $('a[href="#mahasiswa"]').click(function() {
         loadPHP('mahasiswa');
@@ -225,16 +249,6 @@
             }
           })
       }
-      $(document).ready(function() {
-        $.ajax({
-            type: "GET",
-            url: "api/landing",
-            success: function(data) {
-              $('#content').empty();
-              $('#content').html(data);
-            }
-        })
-      })
     </script>
   </body>
 
