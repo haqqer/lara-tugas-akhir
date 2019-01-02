@@ -79,5 +79,13 @@ Route::prefix('admin')->group(function() {
         Route::post('/{id?}', 'PublikasiController@store', 'id');
         Route::get('/{id}/delete', 'PublikasiController@delete', 'id');
     });
+    Route::prefix('topik')->group(function() {
+        Route::get('/', 'TopikController@index');
+        Route::post('/', 'TopikController@store');
+        Route::get('/kategori', 'TopikController@kategori');
+        Route::get('/{id}', 'TopikController@show', 'id');
+        Route::post('/{id?}', 'TopikController@store', 'id');
+        Route::get('/{id}/delete', 'TopikController@delete', 'id');
+    });
 });
 
