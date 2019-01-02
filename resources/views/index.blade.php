@@ -212,7 +212,7 @@
       });            
 
       $('a[href="#topik"]').click(function() {
-        loadPHP('downloadebook');
+        loadPHP('topik');
       });
 
       function loadPHP(id_name) {
