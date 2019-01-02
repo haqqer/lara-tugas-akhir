@@ -71,5 +71,21 @@ Route::prefix('admin')->group(function() {
         Route::post('/{id?}', 'DownloadController@store', 'id');
         Route::get('/{id}/delete', 'DownloadController@delete', 'id');
     });
+    Route::prefix('publikasi')->group(function() {
+        Route::get('/', 'PublikasiController@index');
+        Route::get('/{id}/show', 'PublikasiController@show', 'id');
+        Route::get('/create', 'PublikasiController@create');
+        Route::get('/{id}/edit', 'PublikasiController@edit', 'id');
+        Route::post('/{id?}', 'PublikasiController@store', 'id');
+        Route::get('/{id}/delete', 'PublikasiController@delete', 'id');
+    });
+    Route::prefix('topik')->group(function() {
+        Route::get('/', 'TopikController@index');
+        Route::post('/', 'TopikController@store');
+        Route::get('/kategori', 'TopikController@kategori');
+        Route::get('/{id}', 'TopikController@show', 'id');
+        Route::post('/{id?}', 'TopikController@store', 'id');
+        Route::get('/{id}/delete', 'TopikController@delete', 'id');
+    });
 });
 
