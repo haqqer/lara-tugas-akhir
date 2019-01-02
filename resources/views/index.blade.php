@@ -211,6 +211,10 @@
         loadPHP('downloadebook');
       });            
 
+      $('a[href="#topik"]').click(function() {
+        loadPHP('downloadebook');
+      });
+
       function loadPHP(id_name) {
           $.ajax({
             type: "GET",
